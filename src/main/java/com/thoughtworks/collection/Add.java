@@ -4,6 +4,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Add {
@@ -68,7 +69,11 @@ public class Add {
     }
 
     public boolean isIncludedInEvenIndex(List<Integer> arrayList, Integer specialElment) {
-        throw new NotImplementedException();
+      Optional optional = arrayList.stream()
+        .filter(integer -> integer == specialElment && specialElment % 2 == 0)
+        .findFirst();
+
+      return optional.isPresent();
     }
 
     public List<Integer> getUnrepeatedFromEvenIndex(List<Integer> arrayList) {
