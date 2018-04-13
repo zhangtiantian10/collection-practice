@@ -54,7 +54,9 @@ public class Add {
     }
 
     public double getMedianOfEvenIndex(List<Integer> arrayList) {
-        throw new NotImplementedException();
+      return arrayList.stream()
+        .filter(number -> number % 2 == 0)
+        .reduce(0 , (sum, number) -> sum + number) / 2;
     }
 
     public double getAverageOfEvenIndex(List<Integer> arrayList) {
