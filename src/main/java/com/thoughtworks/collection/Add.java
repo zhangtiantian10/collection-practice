@@ -2,19 +2,43 @@ package com.thoughtworks.collection;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Add {
     public int getSumOfEvens(int leftBorder, int rightBorder) {
-        throw new NotImplementedException();
+      List<Integer> numbers = getNumbers(leftBorder, rightBorder, 2);
+
+      return numbers.stream()
+        .reduce(0, (sum, n) -> sum + n);
+    }
+
+    private List<Integer> getNumbers(int leftBorder, int rightBorder, int type) {
+      List<Integer> numbers = new ArrayList<>();
+      int max = leftBorder > rightBorder ? leftBorder : rightBorder;
+      int min = leftBorder > rightBorder ? rightBorder : leftBorder;
+
+      for (int i = min; i <= max; i++) {
+        if (i % 2 == 0 && type == 2) {
+          numbers.add(i);
+        } else if (i % 2 != 0 && type == 1){
+          numbers.add(i);
+        }
+      }
+
+      return numbers;
     }
 
     public int getSumOfOdds(int leftBorder, int rightBorder) {
-        throw new NotImplementedException();
+      List<Integer> numbers = getNumbers(leftBorder, rightBorder, 1);
+
+      return numbers.stream()
+        .reduce(0, (sum, n) -> sum + n);
     }
 
     public int getSumTripleAndAddTwo(List<Integer> arrayList) {
-        throw new NotImplementedException();
+        return arrayList.stream()
+          .reduce(0, (sum, number) -> sum + (number * 3 + 2));
     }
 
     public List<Integer> getTripleOfOddAndAddTwo(List<Integer> arrayList) {
