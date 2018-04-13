@@ -60,7 +60,11 @@ public class Add {
     }
 
     public double getAverageOfEvenIndex(List<Integer> arrayList) {
-        throw new NotImplementedException();
+        List<Integer> numbers = arrayList.stream()
+          .filter(number -> number % 2 == 0)
+          .collect(Collectors.toList());
+      return numbers.stream()
+        .reduce(0, (sum, number) -> sum + number) / numbers.size();
     }
 
     public boolean isIncludedInEvenIndex(List<Integer> arrayList, Integer specialElment) {
