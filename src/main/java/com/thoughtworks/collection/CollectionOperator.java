@@ -1,7 +1,5 @@
 package com.thoughtworks.collection;
 
-import com.google.common.primitives.Ints;
-
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -51,25 +49,24 @@ public class CollectionOperator {
     }
 
     public List<Integer> popCommonElement(int[] firstArray, int[] secondArray) {
+      List<Integer> list = Arrays.stream(secondArray)
+        .boxed()
+        .collect(Collectors.toList());
       return Arrays.stream(firstArray)
         .boxed()
-        .filter(item -> Ints.contains(secondArray, item))
+        .filter(item -> list.contains(item))
         .collect(Collectors.toList());
     }
 
     public List<Integer> addUncommonElement(Integer[] firstArray, Integer[] secondArray) {
-      int[] firstIntArray = toIntArray(firstArray);
-      Stream<Integer> uncommonStream = Arrays.stream(secondArray)
-        .filter(item -> !Ints.contains(firstIntArray, item.intValue()));
-      return Stream.concat(Arrays.stream(firstArray), uncommonStream)
+      List<Integer> secondList = Arrays.stream(secondArray)
+        .collect(Collectors.toList());
+      List<Integer> firstList = Arrays.stream(firstArray)
+        .collect(Collectors.toList());
+      Stream<Integer> uncommonFirstStream = secondList.stream()
+        .filter(item -> !firstList.contains(item));
+      Stream<Integer> uncommonSecondStream = firstList.stream();
+      return Stream.concat(uncommonSecondStream, uncommonFirstStream)
         .collect(Collectors.toList());
     }
-
-  static int[] toIntArray(Integer[] integerArray) {
-    int[] intArray = new int[integerArray.length];
-    for (int i = 0; i < integerArray.length; i++) {
-      intArray[i] = integerArray[i];
-    }
-    return intArray;
-  }
 }

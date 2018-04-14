@@ -1,11 +1,6 @@
 package com.thoughtworks.collection;
 
-import com.github.underscore.Tuple;
-import com.sun.xml.internal.ws.util.StreamUtils;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.*;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;

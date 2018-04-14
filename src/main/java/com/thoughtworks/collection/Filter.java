@@ -1,10 +1,6 @@
 package com.thoughtworks.collection;
 
-import com.google.common.primitives.Ints;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Filter {
@@ -28,9 +24,8 @@ public class Filter {
     }
 
     public List<Integer> getCommonElements(List<Integer> firstList, List<Integer> secondList) {
-      int[] arrayInt = toIntArray((Integer[]) secondList.toArray());
       return firstList.stream()
-        .filter(item -> Ints.contains(arrayInt, item))
+        .filter(item -> secondList.contains(item))
         .collect(Collectors.toList());
     }
 
@@ -39,12 +34,4 @@ public class Filter {
           .distinct()
           .collect(Collectors.toList());
     }
-
-  static int[] toIntArray(Integer[] integerArray) {
-    int[] intArray = new int[integerArray.length];
-    for (int i = 0; i < integerArray.length; i++) {
-      intArray[i] = integerArray[i];
-    }
-    return intArray;
-  }
 }
