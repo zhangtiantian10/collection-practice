@@ -1,5 +1,6 @@
 package com.thoughtworks.collection;
 
+import com.google.common.primitives.Ints;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.List;
@@ -27,7 +28,10 @@ public class Filter {
     }
 
     public List<Integer> getCommonElements(List<Integer> firstList, List<Integer> secondList) {
-        throw new NotImplementedException();
+      int[] arrayInt = toIntArray((Integer[]) secondList.toArray());
+      return firstList.stream()
+        .filter(item -> Ints.contains(arrayInt, item))
+        .collect(Collectors.toList());
     }
 
     public List<Integer> getDifferentElements() {
@@ -35,4 +39,12 @@ public class Filter {
           .distinct()
           .collect(Collectors.toList());
     }
+
+  static int[] toIntArray(Integer[] integerArray) {
+    int[] intArray = new int[integerArray.length];
+    for (int i = 0; i < integerArray.length; i++) {
+      intArray[i] = integerArray[i];
+    }
+    return intArray;
+  }
 }
