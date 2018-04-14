@@ -2,6 +2,7 @@ package com.thoughtworks.collection;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class Reduce {
@@ -13,43 +14,73 @@ public class Reduce {
     }
 
     public int getMaximum() {
-        throw new NotImplementedException();
+        return arrayList.stream()
+          .min(Comparator.reverseOrder()).get();
     }
 
     public double getMinimum() {
-        throw new NotImplementedException();
+      return arrayList.stream()
+        .max(Comparator.reverseOrder()).get();
     }
 
     public double getAverage() {
-        throw new NotImplementedException();
+      int number = arrayList.stream()
+        .reduce(0, (sum, item) -> sum + item);
+
+      return (double) number / arrayList.size();
     }
 
     public double getOrderedMedian() {
-        throw new NotImplementedException();
+      int size = arrayList.size();
+
+        if (size % 2 == 0) {
+          return (double) (arrayList.get(size / 2 - 1) + arrayList.get(size / 2)) / 2;
+        } else {
+          return arrayList.get(size / 2);
+        }
     }
 
     public int getFirstEven() {
-        throw new NotImplementedException();
+      return arrayList.stream()
+        .filter(item -> item % 2 == 0)
+        .findFirst().get();
     }
 
     public int getIndexOfFirstEven() {
-        throw new NotImplementedException();
+      int even = getFirstEven();
+
+      return arrayList.indexOf(even);
     }
 
     public boolean isEqual(List<Integer> arrayList) {
-        throw new NotImplementedException();
+      return this.arrayList.equals(arrayList);
     }
 
     //实现接口SingleLink，然后再此函数内使用
     public Double getMedianInLinkList(SingleLink singleLink) {
-        throw new NotImplementedException();
+      for(int i=0; i<arrayList.size(); i++){
+
+        singleLink.addTailPointer(arrayList.get(i));
+      }
+
+      int index = arrayList.size()/2;
+
+      if(arrayList.size()%2 == 0){
+        return ((Integer) singleLink.getNode(index) + (Integer) singleLink.getNode(index+1))/2.0;
+      }else{
+        return (Double) singleLink.getNode(index+1);
+      }
     }
 
     public int getLastOdd() {
-        throw new NotImplementedException();
+        return arrayList.stream()
+          .filter(item -> item % 2 != 0)
+          .reduce((a, b) -> b).get();
     }
 
     public int getIndexOfLastOdd() {
-        throw new NotImplementedException();
+      int lastOdd = getLastOdd();
+
+      return arrayList.lastIndexOf(lastOdd);
     }
 }
